@@ -1,8 +1,8 @@
 # memory-game
 
-I decided to create memory game to practice and showcase what I've learnt from HTML, CSS and Javascript. You can find bellow each step I took to create this game...
-
-- Create folder for project including: html file, css file, js file, images folder with images for cards, image for back of cards and logo
+I decided to create a memory game to practice and showcase what I've learnt from HTML, CSS and Javascript. You can find bellow each step I took to create this game...
+- Create GitHub repo and clone it to my computer
+- Add files to folder: html file, css file, js file, images folder with images for cards, image for back of cards and logo
 - Create initial structure using HTML
 - Create styles to give form to the game, created a grid template so that cards are all the same size and images fit into grid containers
 - Create game logic in javascript including
