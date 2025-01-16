@@ -1,45 +1,53 @@
 document.addEventListener("DOMContentLoaded", function() {
     let theme = "bird";
-    let gameSize = 20;
+    let gameSize = 6;
     let cardsArray = [];
+    const cardsGrid = document.getElementById("cards-grid");
+    const btnWin = document.getElementById("btn-win");
+    const btnRestart = document.getElementById("btn-restart");
 
+    // init Game
+    createCardsArray(theme, gameSize, cardsArray);
+    shuffleCards(cardsArray);
+    createGrid(cardsArray, cardsGrid);
 
-    // create array with card imgs
-    for (i=1; i<=gameSize; i++) {
-        if (i<=(gameSize/2)) {
-            cardsArray[i-1] = `${theme}-${i}`;
-        } else {
-            cardsArray[i-1] = `${theme}-${i-10}`;
+    // set up images array
+    function createCardsArray(theme, gameSize, cardsArray) {
+        for (let i = 1; i <= (gameSize/2); i++) {
+            const cardName = `${theme}-${i}`;
+            cardsArray.push(cardName, cardName); 
         }
-    };
-
-    // shuffle the cardsArray
-    for (let i = cardsArray.length - 1; i > 0; i--) {
-        const randomIndex = Math.floor(Math.random() * (i + 1));
-        [cardsArray[i], cardsArray[randomIndex]] = [cardsArray[randomIndex], cardsArray[i]];
     }
 
-    // link cards to HTML grid
-    const cardsGrid = document.getElementById("cards-grid");
+    // shuffle cards
+    function shuffleCards(cardsArray) {
+        for (let i = cardsArray.length - 1; i > 0; i--) {
+            const randomIndex = Math.floor(Math.random() * (i + 1));
+            [cardsArray[i], cardsArray[randomIndex]] = [cardsArray[randomIndex], cardsArray[i]];
+        }
+    }
 
-    cardsArray.forEach((cardName) => {
-        const card = document.createElement("div");
-        card.classList.add("card");
-        card.dataset.cardName = cardName;
-
-        const img = document.createElement("img");
-        img.src = `imgs/${cardName}.jpg`;
-        img.alt = cardName;
-
-        card.appendChild(img);
-        cardsGrid.appendChild(card);
-    });
+    // create grid
+    function createGrid(cardsArray, cardsGrid) {
+        cardsArray.forEach((cardName) => {
+            const card = document.createElement("div");
+            card.classList.add("card");
+            card.dataset.cardName = cardName;
+    
+            const img = document.createElement("img");
+            img.src = `imgs/${cardName}.jpg`;
+            img.alt = cardName;
+    
+            card.appendChild(img);
+            cardsGrid.appendChild(card);
+        });
+    }
 
     // game logic
     let firstCard = null;
     let secondCard = null;
     let lockBoard = false;
-
+    let matchCounter = 0;
     
     function flipCard(event) {
         if (lockBoard) return;
@@ -62,6 +70,10 @@ document.addEventListener("DOMContentLoaded", function() {
     
         if (isMatch) {
             resetTurn();
+            matchCounter++;
+            if (matchCounter == (gameSize/2)) {
+                winGame();
+            }
         } else {
             lockBoard = true;
             setTimeout(() => {
@@ -79,9 +91,43 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function winGame() {
-        alert('YOU WON!')
+        const winBanner = document.getElementById("winBanner");
+        winBanner.classList.remove("hidden");
+        const btnRestart = document.getElementById("btn-restart");
+        btnRestart.classList.add("hidden");
     }
 
+    function resetGame(){
+        const allCards = document.querySelectorAll(".card");
+
+        allCards.forEach((card) => {
+            setTimeout(() => {
+                card.classList.remove("flipped");
+            }, 1000);
+        });
+
+        cardsGrid.innerHTML = "";
+        
+        resetTurn();
+        matchCounter = 0;
+
+        shuffleCards(cardsArray);
+
+        createGrid(cardsArray, cardsGrid);
+    };
+
     cardsGrid.addEventListener("click", flipCard);
+
+    btnWin.addEventListener("click", () => {
+        const winBanner = document.getElementById("winBanner");
+        winBanner.classList.add("hidden");
+        const btnRestart = document.getElementById("btn-restart");
+        btnRestart.classList.remove("hidden");
+        resetGame();
+    });
+
+    btnRestart.addEventListener("click", () => {
+        resetGame();
+    });
 
 });
