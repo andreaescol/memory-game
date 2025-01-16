@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     let theme = "bird";
-    let gameSize = 6;
+    let gameSize = 20;
     let cardsArray = [];
     const cardsGrid = document.getElementById("cards-grid");
     const btnWin = document.getElementById("btn-win");
