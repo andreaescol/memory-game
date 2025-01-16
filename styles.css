@@ -37,7 +37,12 @@ header .logo {
 .card {
     width: 17vw;
     height: 20vw;
-    background-color: darkcyan;
+    background-color: #769867;
+    border-radius: 10%;
+    background-image: url(imgs/card-back.png);
+    background-size: 50% auto; 
+    background-position: bottom; 
+    background-repeat: no-repeat; 
 }
 
 .card img {
@@ -45,6 +50,12 @@ header .logo {
     height: 100%;
     object-fit: cover;
     object-position: top;
+    border-radius: 10%;
+    display: none;
+}
+
+.flipped img {
+    display: block;
 }
 
 .restart {
