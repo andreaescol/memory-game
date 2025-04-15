@@ -1,6 +1,9 @@
 # memory-game
 
-I decided to create a memory game to practice and showcase what I've learnt from HTML, CSS and Javascript. You can find bellow each step I took to create this game...
+I decided to create a memory game to practice and showcase what I've learnt from HTML, CSS and Javascript. 
+Visit the game at https://andreaescol.github.io/memory-game/
+
+You can find bellow each step I took to create this game...
 - Create GitHub repo and clone it to my computer
 - Add files to folder: html file, css file, js file, images folder with images for cards, image for back of cards and logo
 - Create initial structure using HTML
